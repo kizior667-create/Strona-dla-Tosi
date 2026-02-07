@@ -27,11 +27,11 @@ body {
 .card {
     position: relative;
     width: 360px;
-    height: 260px;
+    height: 220px; /* MNIEJSZA KARTA */
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(14px);
     border-radius: 24px;
-    padding: 24px;
+    padding: 20px 24px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
@@ -39,10 +39,14 @@ body {
 h1 {
     color: #d6c7ff;
     font-size: 1.2rem;
-    margin-bottom: 24px;
+    margin-bottom: 12px; /* MNIEJSZA PRZERWA */
 }
 
-/* 🔒 ZAMROŻONY PRZYCISK */
+.heart {
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+}
+
 button {
     position: absolute;
     width: 96px;
@@ -54,8 +58,6 @@ button {
     background: transparent;
     color: #bfaaff;
     cursor: pointer;
-
-    /* ZABIJA POWIĘKSZANIE */
     user-select: none;
     outline: none;
     transform: none !important;
@@ -63,19 +65,14 @@ button {
     -webkit-text-size-adjust: 100%;
 }
 
-/* ZABIJA :active W SAFARI */
-button:active {
-    transform: none !important;
-}
-
 #yesButton {
-    left: 24px;
-    bottom: 24px;
+    left: 32px;
+    bottom: 24px; /* PODNIESIONE */
 }
 
 #noButton {
-    right: 24px;
-    bottom: 24px;
+    right: 32px;
+    bottom: 24px; /* PODNIESIONE */
 }
 </style>
 </head>
@@ -83,7 +80,8 @@ button:active {
 <body>
 
 <div class="card" id="card">
-    <h1>Czy zostaniesz moją Walentynką? 💜</h1>
+    <h1>Czy zostaniesz moją Walentynką?</h1>
+    <div class="heart">💜</div>
 
     <button id="yesButton" onclick="goToCongrats()">Tak</button>
     <button id="noButton">Nie</button>
@@ -102,7 +100,7 @@ function moveButton() {
     const btnW = noButton.offsetWidth;
     const btnH = noButton.offsetHeight;
 
-    const minY = 80; // ❗ poniżej tekstu
+    const minY = 90; // TU ZACZYNA SIĘ RUCH (tuż pod tekstem)
     const maxX = cardW - btnW - margin;
     const maxY = cardH - btnH - margin;
 
