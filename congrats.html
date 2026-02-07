@@ -5,41 +5,78 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <meta http-equiv="refresh" content="10;url=index.html">
-    
+
 <title>Gratulacje</title>
+
 <style>
+    * { box-sizing: border-box; }
+
     body {
-        background-color: black;
-        color: white;
-        font-family: Arial, sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        font-family: 'Inter', Arial, sans-serif;
+        background: radial-gradient(circle at top, #2b2147, #000);
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100vh;
-        margin: 0;
+        color: #fff;
+        overflow: hidden;
     }
-    h1 {
-        color: #B19CD9;
-        font-size: 36px;
+
+    .card {
+        background: rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        padding: 48px 40px;
         text-align: center;
+        backdrop-filter: blur(14px);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        animation: fadeIn 1.2s ease;
+    }
+
+    h1 {
+        color: #d6c7ff;
+        font-size: 2.4rem;
         margin-bottom: 20px;
     }
+
     .hearts {
-        font-size: 50px;
-        color: #B19CD9;
-        animation: float 2s infinite alternate;
+        font-size: 3rem;
+        animation: float 2s ease-in-out infinite alternate;
+    }
+
+    .sub {
+        opacity: 0.6;
+        margin-top: 28px;
+        font-size: 0.9rem;
     }
 
     @keyframes float {
-        0% { transform: translateY(0); }
-        100% { transform: translateY(-20px); }
+        from { transform: translateY(0); }
+        to   { transform: translateY(-20px); }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
     }
 </style>
 </head>
+
 <body>
-<h1>Gratulacje, zostałaś moją Walentynką!</h1>
-<div class="hearts">❤️ 💜 ❤️ 💜 ❤️</div>
+<div class="card">
+    <h1>Gratulacje 💜</h1>
+    <div>zostałaś moją Walentynką</div>
+    <div class="hearts">❤️ 💜 ❤️ 💜 ❤️</div>
+    <div class="sub">wracamy za chwilę…</div>
+</div>
 </body>
+</html>
 
 </html>
+
