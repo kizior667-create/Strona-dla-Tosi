@@ -17,47 +17,102 @@ body {
     justify-content: center;
     align-items: center;
     color: #fff;
+    overflow: hidden;
+}
+
+/* TŁO – LATAJĄCE SERDUSZKA */
+.heart {
+    position: fixed;
+    bottom: -40px;
+    font-size: 20px;
+    color: rgba(191,170,255,0.6);
+    animation: rise linear infinite;
+    pointer-events: none;
+}
+
+@keyframes rise {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 0;
+    }
+    10% { opacity: 1; }
+    to {
+        transform: translateY(-110vh) scale(1.4);
+        opacity: 0;
+    }
 }
 
 .card {
+    position: relative;
+    z-index: 10;
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(14px);
     border-radius: 24px;
     padding: 48px 40px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    max-width: 90%;
 }
 
 h1 {
     color: #d6c7ff;
-    margin-bottom: 20px;
+    margin-bottom: 16px;
+    font-size: 2rem;
+}
+
+.subtitle {
+    color: #bfaaff;
+    font-size: 1.2rem;
+    margin-bottom: 28px;
+    letter-spacing: 0.5px;
 }
 
 .hearts {
-    font-size: 3rem;
-    animation: float 2s infinite alternate;
+    font-size: 2.4rem;
+    color: #bfaaff;
+    animation: float 2s ease-in-out infinite alternate;
 }
 
 @keyframes float {
     from { transform: translateY(0); }
-    to   { transform: translateY(-20px); }
+    to   { transform: translateY(-16px); }
 }
 </style>
 </head>
 
 <body>
+
 <div class="card">
     <h1>Gratulacje 💜</h1>
-    <div>Zostałaś moją Walentynką</div>
-    <div class="hearts">❤️ 💜 ❤️ 💜 ❤️</div>
+    <div class="subtitle">Zostałaś moją Walentynką</div>
+    <div class="hearts">💜 💜 💜</div>
 </div>
 
 <script>
+// powrót po 10 sekundach
 setTimeout(() => {
     window.location.href = "index.html";
 }, 10000);
+
+// generowanie serduszek w tle
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💜";
+
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = 14 + Math.random() * 20 + "px";
+    heart.style.animationDuration = 6 + Math.random() * 6 + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 12000);
+}
+
+setInterval(createHeart, 400);
 </script>
 
 </body>
 </html>
-
