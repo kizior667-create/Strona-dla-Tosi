@@ -8,10 +8,6 @@
 <style>
 * { box-sizing: border-box; }
 
-:root {
-    --safe-bottom: env(safe-area-inset-bottom);
-}
-
 body {
     min-height: 100vh;
     margin: 0;
@@ -31,6 +27,7 @@ body {
     padding: 48px 40px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    z-index: 10;
 }
 
 h1 {
@@ -58,6 +55,7 @@ button {
 </head>
 
 <body>
+
 <div class="card">
     <h1>Czy zostaniesz moją Walentynką? 💜</h1>
     <div class="buttons">
@@ -72,29 +70,32 @@ const noButton = document.getElementById("noButton");
 function moveButton() {
     const margin = 16;
 
-    const buttonWidth = noButton.offsetWidth;
-    const buttonHeight = noButton.offsetHeight;
+    const btnW = noButton.offsetWidth;
+    const btnH = noButton.offsetHeight;
 
-    const safeBottom = parseInt(
-        getComputedStyle(document.documentElement)
-            .getPropertyValue("--safe-bottom")
-    ) || 40; // fallback dla starszego Safari
+    const vv = window.visualViewport;
 
-    const maxX = window.innerWidth - buttonWidth - margin;
-    const maxY = window.innerHeight - buttonHeight - margin - safeBottom;
+    const viewportWidth  = vv ? vv.width  : window.innerWidth;
+    const viewportHeight = vv ? vv.height : window.innerHeight;
 
-    const x = Math.max(margin, Math.random() * maxX);
-    const y = Math.max(margin, Math.random() * maxY);
+    const offsetLeft = vv ? vv.offsetLeft : 0;
+    const offsetTop  = vv ? vv.offsetTop  : 0;
+
+    const maxX = viewportWidth  - btnW - margin;
+    const maxY = viewportHeight - btnH - margin;
+
+    const x = offsetLeft + margin + Math.random() * maxX;
+    const y = offsetTop  + margin + Math.random() * maxY;
 
     noButton.style.position = "fixed";
-    noButton.style.left = x + "px";
-    noButton.style.top = y + "px";
+    noButton.style.left = `${x}px`;
+    noButton.style.top  = `${y}px`;
 }
 
 // desktop
 noButton.addEventListener("mouseenter", moveButton);
 
-// mobile Safari
+// mobile (Safari / iOS)
 noButton.addEventListener("touchstart", (e) => {
     e.preventDefault();
     moveButton();
@@ -104,5 +105,6 @@ function goToCongrats() {
     window.location.href = "congrats.html";
 }
 </script>
+
 </body>
 </html>
