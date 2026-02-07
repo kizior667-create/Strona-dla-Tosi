@@ -9,36 +9,26 @@
 * { box-sizing: border-box; }
 
 body {
+    min-height: 100vh;
     margin: 0;
     font-family: Arial, sans-serif;
     background: radial-gradient(circle at top, #2b2147, #000);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #fff;
     overflow: hidden;
 }
 
-/* FAKE VIEWPORT – zawsze równy temu co WIDAĆ */
-#viewport {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-}
-
-/* karta */
 .card {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    position: relative; /* KLUCZOWE */
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(14px);
     border-radius: 24px;
     padding: 48px 40px;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-    pointer-events: auto;
+    width: 320px;
 }
 
 h1 {
@@ -47,9 +37,8 @@ h1 {
 }
 
 .buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
+    position: relative; /* KLUCZOWE */
+    height: 80px;
 }
 
 button {
@@ -62,57 +51,45 @@ button {
     cursor: pointer;
     touch-action: manipulation;
 }
+
+#noButton {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
 </style>
 </head>
 
 <body>
 
-<div id="viewport">
-    <div class="card">
-        <h1>Czy zostaniesz moją Walentynką? 💜</h1>
-        <div class="buttons">
-            <button onclick="goToCongrats()">Tak</button>
-            <button id="noButton">Nie</button>
-        </div>
+<div class="card">
+    <h1>Czy zostaniesz moją Walentynką? 💜</h1>
+
+    <div class="buttons" id="buttonsBox">
+        <button onclick="goToCongrats()">Tak</button>
+        <button id="noButton">Nie</button>
     </div>
 </div>
 
 <script>
 const noButton = document.getElementById("noButton");
-const viewport = document.getElementById("viewport");
-
-function syncViewport() {
-    const vv = window.visualViewport;
-    if (!vv) return;
-
-    viewport.style.width = vv.width + "px";
-    viewport.style.height = vv.height + "px";
-    viewport.style.transform = `translate(${vv.offsetLeft}px, ${vv.offsetTop}px)`;
-}
-
-// SYNC przy KAŻDEJ zmianie Safari
-if (window.visualViewport) {
-    visualViewport.addEventListener("resize", syncViewport);
-    visualViewport.addEventListener("scroll", syncViewport);
-}
-syncViewport();
+const box = document.getElementById("buttonsBox");
 
 function moveButton() {
-    const margin = 16;
+    const margin = 8;
 
-    const vpW = viewport.clientWidth;
-    const vpH = viewport.clientHeight;
+    const boxW = box.clientWidth;
+    const boxH = box.clientHeight;
 
     const btnW = noButton.offsetWidth;
     const btnH = noButton.offsetHeight;
 
-    const maxX = vpW - btnW - margin;
-    const maxY = vpH - btnH - margin;
+    const maxX = boxW - btnW - margin;
+    const maxY = boxH - btnH - margin;
 
     const x = margin + Math.random() * maxX;
     const y = margin + Math.random() * maxY;
 
-    noButton.style.position = "absolute";
     noButton.style.left = x + "px";
     noButton.style.top  = y + "px";
 }
