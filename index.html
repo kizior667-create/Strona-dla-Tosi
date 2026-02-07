@@ -65,12 +65,16 @@ button {
 const noButton = document.getElementById("noButton");
 
 function moveButton() {
-    const padding = 20;
-    const maxX = window.innerWidth - noButton.offsetWidth - padding;
-    const maxY = window.innerHeight - noButton.offsetHeight - padding;
+    const margin = 16;
 
-    const x = Math.random() * maxX;
-    const y = Math.random() * maxY;
+    const buttonWidth = noButton.offsetWidth;
+    const buttonHeight = noButton.offsetHeight;
+
+    const maxX = window.innerWidth - buttonWidth - margin;
+    const maxY = window.innerHeight - buttonHeight - margin;
+
+    const x = Math.max(margin, Math.random() * maxX);
+    const y = Math.max(margin, Math.random() * maxY);
 
     noButton.style.position = "fixed";
     noButton.style.left = x + "px";
@@ -79,8 +83,12 @@ function moveButton() {
 
 // desktop
 noButton.addEventListener("mouseenter", moveButton);
+
 // mobile
-noButton.addEventListener("touchstart", moveButton);
+noButton.addEventListener("touchstart", function(e) {
+    e.preventDefault(); // kluczowe na telefonie
+    moveButton();
+});
 
 function goToCongrats() {
     window.location.href = "congrats.html";
@@ -88,4 +96,3 @@ function goToCongrats() {
 </script>
 </body>
 </html>
-
